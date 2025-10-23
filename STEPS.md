@@ -11,3 +11,12 @@
 
 - go to kinde dashboard & kinde docs, initialize a project
 - add client id, secret etc. in env
+
+7. add a file in root, middleware.ts for protected routes
+
+- add the kinde "isAuthencted logic from the docs"
+
+8. create a project on convex.dev and add the convex : npm install convex
+
+- then do : npx convex dev
+- imp : create a client component for convex provider
