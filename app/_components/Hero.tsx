@@ -5,8 +5,8 @@ function Hero() {
     <div>
       <section className="bg-black">
         <div className="flex items-baseline justify-center pt-20">
-          <h2 className="rounded-full border border-white p-2 px-3 text-center text-white">
-            by | <span className="text-sky-300">DaddyCorp</span>
+          <h2 className="rounded-full border border-neutral-300 py-1 px-3 text-center text-white font-semibold text-sm">
+            by <span className="">DaddyCorp</span>
           </h2>
         </div>
         <div className="mx-auto h-screen max-w-screen-xl px-4 py-12 lg:flex">
