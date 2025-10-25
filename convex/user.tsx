@@ -18,7 +18,7 @@ export const getUser = query({
 });
 
 //  the mutation allows to modify the database and create a user
-export const createUser = mutation({ 
+export const createUser = mutation({
   args: {
     name: v.string(),
     email: v.string(),
