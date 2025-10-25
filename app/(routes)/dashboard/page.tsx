@@ -39,6 +39,12 @@ function Dashboard() {
   }, [user])
 
 
+  /*
+     why we implemented the checkUser logic ??
+     -> manual control over exactly when the user check runs
+     -> this is only runs once when the kinde data is available and prevent unnecessary runs/checks
+  */
+
   const checkUser = async () => {
     const res = await convex.query(api.user.getUser, { email: user?.email })
     if (!res?.length) {
