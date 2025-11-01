@@ -30,7 +30,7 @@ function DashboardLayout({
 
         if (!result?.length) {
 
-            // todo: add a screen while redirecting
+            // todo: add a (loading) screen while redirecting
             router.push('teams/create')
         }
     }
