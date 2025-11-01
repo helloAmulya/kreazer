@@ -2,7 +2,7 @@
 
 1. Initialize a nextjs project `npx create-next-app@latest
 
-- Install dependencies : npx install shadcn@latest init
+- Install dependencies : npx shadcn@latest init
 
 3. create a private folder : \_component ( this is about co-location )
 4. create hero and header section
@@ -20,3 +20,7 @@
 
 - then do : npx convex dev
 - imp : create a client component for convex provider
+
+9. Add user & teams shema in convex db folder
+
+- add the logic to get user and check user using the mutation in dashboard page and create team page
