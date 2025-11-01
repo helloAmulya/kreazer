@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { api } from '@/convex/_generated/api'
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
+import { KindeUser, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import { useMutation } from 'convex/react'
 import { create } from 'domain'
 import Image from 'next/image'
