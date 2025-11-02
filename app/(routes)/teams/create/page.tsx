@@ -1,5 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button'
+import { GlowingEffect } from '@/components/ui/glowing-effect'
 import { Input } from '@/components/ui/input'
 import { api } from '@/convex/_generated/api'
 import { KindeUser, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
@@ -24,7 +25,7 @@ function CreateTeam() {
       teamName: teamName,
       createdBy: user?.email,
     }).then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res) {
         router.push('/dashboard')
         toast('Team created successfully')
@@ -58,15 +59,20 @@ function CreateTeam() {
         <h2 className='text-white font-semibold text-[40px] py-3 md:max-w-full text-center text-wrap'> Give your team a name</h2>
 
         <h2 className='text-neutral-400'>This can be changed later in settings </h2>
+
         <div className='mt-7 w-[60%] md:w-[40%]'>
+
           <label className='text-neutral-200'> Team Name</label>
+
           <Input placeholder='Team Name' className='mt-2 focus:outline-none focus:ring-0 ring-0 text-white' onChange={(e) => setTeamName(e.target.value)} />
         </div>
+
 
         <Button className='bg-[#6c45bb] mt-4 md:mt-9 w-[60%] md:w-[40%] hover:bg-[#9571dc]' disabled={!(teamName && teamName.length > 0)}
           onClick={() => createNewTeam()}>
           Create Team
         </Button>
+
       </div>
     </div>
   )
