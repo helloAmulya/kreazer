@@ -1,46 +1,81 @@
-"use client"
+"use client";
 
-import { api } from '@/convex/_generated/api';
-import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
-import { useConvex } from 'convex/react';
-import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
-import { Toaster } from 'sonner';
+import { api } from "@/convex/_generated/api";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { useConvex } from "convex/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Toaster } from "sonner";
+import SideNav from "./_components/SideNav";
+import Image from "next/image";
 
 function DashboardLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
+  const { user, isLoading } = useKindeBrowserClient();
+  const convex = useConvex();
+  const router = useRouter();
+  const [isCheckingTeam, setIsCheckingTeam] = useState(true);
 
-    const { user }: any = useKindeBrowserClient()
-    const convex = useConvex()
-    const router = useRouter()
-
-    useEffect(() => {
-        if (user) {
-            checkTeam()
-        }
-    }, [user])
-
-
+  useEffect(() => {
     const checkTeam = async () => {
-        const result = await convex.query(api.teams.getTeam,
-            { email: user?.email });
+      if (!user) return;
+      try {
+        const result = await convex.query(api.teams.getTeam, {
+          email: user?.email,
+        });
 
         if (!result?.length) {
-
-            // todo: add a (loading) screen while redirecting
-            router.push('teams/create')
+          router.push("teams/create");
         }
-    }
-    return (
-        <div>{children}
-            <Toaster />
-        </div>
+      } catch (err) {
+        console.error("Error checking team:", err);
+      } finally {
+        setIsCheckingTeam(false);
+      }
+    };
 
-    )
+    if (!isLoading && user) {
+      checkTeam();
+    } else if (!isLoading && !user) {
+      setIsCheckingTeam(false);
+    }
+  }, [user, isLoading, convex, router]);
+
+
+if (isLoading || isCheckingTeam) {
+  return (
+    <div className="flex flex-col items-center justify-center h-screen bg-[#0b0b0b] transition-all duration-500">
+      <Image
+        src="/kreazer-logo-main.png"
+        alt="Kreazer logo"
+        width={120}
+        height={120}
+        className="opacity-95 mb-4 animate-fade-in"
+      />
+      <p className="text-base text-neutral-400 font-medium animate-pulse tracking-wide">
+        loading <span className="text-white">kreazer</span>...
+      </p>
+    </div>
+  );
 }
 
-export default DashboardLayout
 
+
+
+  return (
+    <div className="bg-black h-screen w-full">
+      <div className="grid grid-cols-4">
+        <div>
+          <SideNav />
+        </div>
+        <div className="grid grid-cols-3">{children}</div>
+      </div>
+      <Toaster />
+    </div>
+  );
+}
+
+export default DashboardLayout;
