@@ -1,0 +1,32 @@
+
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import React from "react";
+import SideTopNav from "./SideTopNav";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+function SideNav() {
+
+    const { user } = useKindeBrowserClient();
+    return <div className="bg-[#3635364d] backdrop-blur-xl h-screen w-72 fixed border-r border-neutral-600 p-6">
+        {/*  if any issue in ui, check for the dashboard layout file */}
+
+
+        <GlowingEffect
+            spread={40}
+            glow={true}
+            disabled={false}
+            proximity={64}
+            inactiveZone={0.01}
+        />
+        <SideTopNav user={user} />
+
+    </div>;
+}
+
+export default SideNav;
