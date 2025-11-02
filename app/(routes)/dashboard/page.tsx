@@ -59,10 +59,10 @@ function Dashboard() {
   }
 
   return (
-    <div>
-      Dashboard
+    <div >
+      Main Dashboard file
       <Button>
-        <LogoutLink>Logout </LogoutLink>
+        {/* <LogoutLink>Logout </LogoutLink>  this has been replaced by sidebar component-> SideTopNav */}
       </Button>
     </div>
   );
