@@ -8,7 +8,7 @@ import React from "react";
 function Header() {
   return (
     <div>
-      <header className="bg-black">
+      <header className="bg-black relative z-[50]">
         <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-2">
             <Image
@@ -83,8 +83,8 @@ function Header() {
               </ul>
             </nav>
 
-            <div className="flex items-center gap-4">
-              <div className="sm:flex sm:gap-4">
+            <div className="flex items-center gap-4 ">
+              <div className="sm:flex sm:gap-4 ">
                 <LoginLink
                   postLoginRedirectURL="/dashboard"
                   className="block rounded-md px-5 py-2.5 text-sm font-medium text-white transition"
@@ -92,7 +92,7 @@ function Header() {
                   Login
                 </LoginLink>
 
-                <RegisterLink className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black transition hover:text-[#8239dc] sm:block">
+                <RegisterLink className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black transition hover:text-[#8239dc] sm:block hover:cursor-pointer">
                   Register
                 </RegisterLink>
               </div>
