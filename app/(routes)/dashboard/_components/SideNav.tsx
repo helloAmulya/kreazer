@@ -2,7 +2,7 @@
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import SideTopNav from "./SideTopNav";
 import {
     Popover,
@@ -26,7 +26,10 @@ function SideNav() {
         />
         <SideTopNav user={user} />
 
+
     </div>;
 }
 
 export default SideNav;
+
+

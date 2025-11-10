@@ -11,7 +11,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 // import { Separator } from "@radix-ui/react-separator";
 import { Separator } from "@/components/ui/separator"
 import { useConvex } from "convex/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
@@ -24,10 +24,17 @@ export interface TEAM {
 function SideTopNav({ user }: any) {
 
     const convex = useConvex();
-    // const router = useRouter();
+    const router = useRouter();
     const [teamList, setTeamList] = useState<TEAM[]>()
     const [activeTeam, setActiveTeam] = useState<TEAM>()
 
+
+    const onMenuClick = (item: any) => {
+
+        if (item.path) {
+            router.push(item.path)
+        }
+    }
 
     useEffect(() => {
         user && getTeamList();
@@ -38,12 +45,12 @@ function SideTopNav({ user }: any) {
         setActiveTeam(res[0])
     }
 
-    console.log(user)
+    // console.log(user)
     const menu = [
         {
             name: "Create Team",
             id: 1,
-            path: "/create/team",
+            path: "/teams/create ",
             icon: Users,
         },
         {
@@ -53,6 +60,8 @@ function SideTopNav({ user }: any) {
             icon: Settings,
         },
     ];
+
+
     return (
         <div>
 
@@ -86,7 +95,7 @@ function SideTopNav({ user }: any) {
                     <div>
                         {teamList?.map((team, index) => (
 
-                            <h2 key={index} className=" bg-[#2865E0] rounded-sm p-1 font-semibold text-[15px] pl-3 hover:cursor-pointer">{team.teamName}</h2>
+                            <h2 key={index} className={` bg-[#2865E0] rounded-sm p-1 font-semibold text-[15px] pl-3 hover:cursor-pointer ${activeTeam?._id == team._id && 'bg-blue-500'}`}>{team.teamName}</h2>
                         ))}
                     </div>
 
@@ -94,7 +103,9 @@ function SideTopNav({ user }: any) {
                     {/* other options*/}
                     <div>
                         {menu.map((item, index) => (
-                            <h2 className="flex items-center gap-2 p-2 hover:bg-[#3232328f] rounded-lg cursor-pointer" key={index}>
+                            <h2 className="flex items-center gap-2 p-2 hover:bg-[#3232328f] rounded-lg cursor-pointer" key={index}
+                                onClick={() => onMenuClick(item)}
+                            >
                                 <item.icon className="h-4 w-4" />
                                 {/* this is a good way to add a component (images/icons etc.) */}
                                 {item.name}
@@ -125,6 +136,7 @@ function SideTopNav({ user }: any) {
 
                 </PopoverContent>
             </Popover>
+
         </div>
     );
 }
