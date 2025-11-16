@@ -14,7 +14,11 @@ import SideNavBottom from "./SideNavBottom";
 function SideNav() {
 
     const { user } = useKindeBrowserClient();
-    return <div className="bg-[#3635364d] backdrop-blur-xl h-screen w-72 fixed border-r border-neutral-600 flex flex-col p-6">
+    const onFileCreate = (fileName: string) => {
+        
+    }
+
+    return <div className="bg-[#1a1a1a4d] backdrop-blur-xl h-screen w-72 fixed border-r border-neutral-600 flex flex-col p-6">
         {/*  if any issue in ui, check for the dashboard layout file */}
 
 
@@ -33,7 +37,7 @@ function SideNav() {
         <div>
 
         </div>
-        <SideNavBottom />
+        <SideNavBottom onFileCreate={onFileCreate} />
 
 
     </div>;
