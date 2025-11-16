@@ -81,6 +81,7 @@ function SideTopNav({ user }: any) {
                             alt="logo"
                             width={45}
                             height={45}
+                            priority={true}
                         />
                         <h3 className="text-white text-[17px] font-bold flex gap-2 item-center justify-center">
                             {activeTeam?.teamName}
