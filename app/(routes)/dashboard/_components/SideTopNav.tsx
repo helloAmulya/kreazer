@@ -89,7 +89,7 @@ function SideTopNav({ user }: any) {
                     </div>
                 </PopoverTrigger>
 
-                <PopoverContent className="ml-7 p-4 bg-black text-white border-neutral-700 rounded-lg relative">
+                <PopoverContent className="ml-7 p-4 bg-black text-white border-neutral-700 rounded-lg relative ">
                     {/*  added relaive to fix the glow effect  */}
                     <GlowingEffect
                         spread={40}
@@ -108,11 +108,11 @@ function SideTopNav({ user }: any) {
                         {teamList?.map((team, index) => (
                             <h2 key={index}
                                 className={`p-1
-                                    hover:bg-[#2865E0]
+                                    hover:bg-blue-500
                                     mb-1
                          hover:text-white
                          rounded-sm font-semibold text-[15px] pl-3 hover:cursor-pointer
-                         ${activeTeam?._id == team._id && 'bg-blue-500 hover:bg-[#2865E0] text-white'}`}
+                         ${activeTeam?._id == team._id && 'bg-blue-500 text-white'}`}
                                 onClick={() => setActiveTeam(team)}
                             >{team.teamName}</h2>
                         ))}
@@ -121,7 +121,7 @@ function SideTopNav({ user }: any) {
                     {/* other options*/}
                     <div>
                         {menu.map((item, index) => (
-                            <h2 className="flex items-center gap-2 p-2 hover:bg-[#3232328f] rounded-lg cursor-pointer" key={index}
+                            <h2 className="flex items-center gap-2 p-2 hover:bg-[#303f4c9e] rounded-lg cursor-pointer" key={index}
                                 onClick={() => onMenuClick(item)}
                             >
                                 <item.icon className="h-4 w-4" />
@@ -130,7 +130,7 @@ function SideTopNav({ user }: any) {
                             </h2>
                         ))}
 
-                        <LogoutLink><h2 className="flex items-center gap-2 p-2 hover:bg-[#3232328f] rounded-lg cursor-pointer" >
+                        <LogoutLink><h2 className="flex items-center gap-2 p-2 hover:bg-[#303f4c9e]  rounded-lg cursor-pointer" >
                             <LogOut className="h-4 w-4" />
 
                             Logout
