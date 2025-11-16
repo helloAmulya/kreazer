@@ -7,6 +7,16 @@ import { useConvex, useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 function Dashboard() {
 
   const { user }: any = useKindeBrowserClient()
@@ -60,10 +70,11 @@ function Dashboard() {
 
   return (
     <div >
-      Main Dashboard file
-      <Button>
-        {/* <LogoutLink>Logout </LogoutLink>  this has been replaced by sidebar component-> SideTopNav */}
-      </Button>
+      <p className="text-white">fdfb</p>
+      {/* <Button>
+        <LogoutLink>Logout </LogoutLink>  this has been replaced by sidebar component-> SideTopNav
+      </Button> */}
+
     </div>
   );
 }
