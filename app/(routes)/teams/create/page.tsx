@@ -40,6 +40,7 @@ function CreateTeam() {
           alt="logo"
           width={60}
           height={60}
+          priority
         />
         <h3 className='text-white font-semibold text-2xl'>Kreazer</h3>
       </div>
