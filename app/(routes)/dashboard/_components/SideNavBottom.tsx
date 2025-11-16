@@ -1,9 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Archive, Flag, Github } from "lucide-react";
 import { h2 } from "motion/react-client";
-import React from "react";
+import React, { useState } from "react";
 
-const SideNavBottom = () => {
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { DialogClose } from "@radix-ui/react-dialog";
+
+const SideNavBottom = ({ onFileCreate }: any) => {
     const menulist = [
         {
             name: "Getting Started",
@@ -25,6 +37,7 @@ const SideNavBottom = () => {
         },
     ];
 
+    const [fileInput, setFileInput] = useState("")
     return (
         <div className="text-white">
             {menulist.map((item, index) => (
@@ -38,20 +51,85 @@ const SideNavBottom = () => {
             ))}
 
             {/* Add new file */}
-            <Button className="bg-blue-600 hover:bg-blue-700 w-full  justify-start mt-3
+            {/* <Dialog>
+                <DialogTrigger className="w-full">
+                    <Button className="bg-blue-600 hover:bg-blue-700 w-full  justify-start mt-3
             ">
-                New File
-            </Button>
+                        New File
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-gray-700">
+                    <DialogHeader>
+                        <DialogTitle> Create New File</DialogTitle>
+                        <DialogDescription>
+                            <Input className="text-black " placeholder="Enter File Name" />
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <DialogFooter className="sm:justify-start">
+                        <DialogClose asChild>
+                            <Button type="button" variant="secondary" className="bg-gray-700 hover:bg-gray-800 text-white">
+                                Close
+                            </Button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog> */}
+
+            <Dialog>
+                <DialogTrigger className="w-full " asChild>
+                    <Button
+                        className="w-full justify-start mt-3 bg-[#8c43face] hover:bg-[#7a4dd2f4]"
+                    >
+                        New File
+                        {/* // you can also add asChild in the Dialog Trigger to remove the hydration error, but this works fine */}
+                    </Button>
+                </DialogTrigger>
+
+                <DialogContent className="bg-black border border-neutral-800 text-white">
+                    <DialogHeader>
+                        <DialogTitle className="text-white">Create New File</DialogTitle>
+
+                        <DialogDescription className="text-neutral-400">
+                            <Input
+                                className="mt-2 bg-neutral-900 border-neutral-700 text-white focus-visible:ring-0"
+                                placeholder="Enter File Name"
+                                onChange={(e) => setFileInput(e.target.value)}
+                            />
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <DialogFooter className="">
+                        <DialogClose asChild>
+                            <Button
+                                type="button"
+                                variant="secondary"
+                                className="bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700"
+                                disabled={!(fileInput && fileInput.length > 3)}
+                                onClick={() => onFileCreate(fileInput)}
+                            >
+                                Close
+                            </Button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
             {/* Progress Bar Button */}
             <div className="h-3 w-full bg-gray-400 rounded-full mt-3">
-                <div className="w-[30%] h-3 bg-blue-500 rounded-full">
-                </div>
+                <div className="w-[30%] h-3 bg-[#a043f1] rounded-full"></div>
             </div>
 
-            <h2 className="text-[12px] mt-3">1 out of <strong>5</strong> files used</h2>
-            <h2 className="text-[13px] mt-1"> <span className="underline underline-offset-3 cursor-pointer">Upgrade</span> your plan for unlimited access</h2>
-
+            <h2 className="text-[12px] mt-3">
+                1 out of <strong>5</strong> files used
+            </h2>
+            <h2 className="text-[13px] mt-1">
+                {" "}
+                <span className="underline underline-offset-3 cursor-pointer">
+                    Upgrade
+                </span>{" "}
+                your plan for unlimited access
+            </h2>
         </div>
     );
 };
