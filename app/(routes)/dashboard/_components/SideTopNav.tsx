@@ -1,4 +1,4 @@
-import { ChevronDown, LogOut, Settings, Users } from "lucide-react";
+import { ChevronDown, LayoutGrid, LogOut, Settings, Users } from "lucide-react";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
 import {
@@ -14,6 +14,7 @@ import { useConvex } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { Button } from "@/components/ui/button";
 
 
 export interface TEAM {
@@ -28,17 +29,22 @@ function SideTopNav({ user }: any) {
     const [teamList, setTeamList] = useState<TEAM[]>()
     const [activeTeam, setActiveTeam] = useState<TEAM>()
 
+    useEffect(() => {
+        user && getTeamList();
+
+    }, [user])
+
+    useEffect(() => {
+        activeTeam ? setActiveTeam(activeTeam) : null
+    }, [activeTeam])
+
 
     const onMenuClick = (item: any) => {
-
         if (item.path) {
             router.push(item.path)
         }
     }
 
-    useEffect(() => {
-        user && getTeamList();
-    }, [user])
     const getTeamList = async () => {
         const res = await convex.query(api.teams.getTeam, { email: user?.email })
         setTeamList(res)
@@ -93,12 +99,24 @@ function SideTopNav({ user }: any) {
                         inactiveZone={0.01}
                     />
                     <div>
-                        {teamList?.map((team, index) => (
+                        {/* {teamList?.map((team, index) => (
 
-                            <h2 key={index} className={` bg-[#2865E0] rounded-sm p-1 font-semibold text-[15px] pl-3 hover:cursor-pointer ${activeTeam?._id == team._id && 'bg-blue-500'}`}>{team.teamName}</h2>
+                            <h2 key={index} className={` bg-[#2865E0] rounded-sm p-1 font-semibold text-[15px] pl-3 hover:cursor-pointer ${activeTeam?._id == team._id && 'bg-blue-500'}`}
+                                onClick={() => setActiveTeam(team)}
+                            >{team.teamName}</h2>
+                        ))} */}
+                        {teamList?.map((team, index) => (
+                            <h2 key={index}
+                                className={`p-1
+                                    hover:bg-[#2865E0]
+                                    mb-1
+                         hover:text-white
+                         rounded-sm font-semibold text-[15px] pl-3 hover:cursor-pointer
+                         ${activeTeam?._id == team._id && 'bg-blue-500 hover:bg-[#2865E0] text-white'}`}
+                                onClick={() => setActiveTeam(team)}
+                            >{team.teamName}</h2>
                         ))}
                     </div>
-
                     <Separator className="mt-2 bg-neutral-700" />
                     {/* other options*/}
                     <div>
@@ -137,6 +155,12 @@ function SideTopNav({ user }: any) {
                 </PopoverContent>
             </Popover>
 
+            <Button className="w-full justify-start mt-8 font-bold gap-2 bg-gray-100"
+                variant='outline'
+            >
+                <LayoutGrid className="h-5 w-5" />
+                All Files
+            </Button>
         </div>
     );
 }
