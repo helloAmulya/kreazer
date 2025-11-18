@@ -2,7 +2,7 @@
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideTopNav, { TEAM } from "./SideTopNav";
 import {
     Popover,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/popover"
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import SideNavBottom from "./SideNavBottom";
-import { useMutation } from "convex/react";
+import { useConvex, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner"
 
@@ -21,7 +21,15 @@ function SideNav() {
     const { user } = useKindeBrowserClient();
     const [activeTeam, setActiveTeam] = useState<TEAM>()
 
+    const convex = useConvex();
     const createFile = useMutation(api.files.createFile)
+
+    const [totalFiles, setTotalFiles] = useState<number>()
+
+
+    useEffect(() => {
+        activeTeam && getFiles();
+    }, [activeTeam])
 
     const onFileCreate = async (fileName: string): Promise<boolean> => {
         if (!activeTeam?._id || !user?.email) {
@@ -41,7 +49,9 @@ function SideNav() {
                 document: '',
                 whiteBoard: '',
             });
+
             if (res) {
+                getFiles()
                 toast.success("File has been created");
                 return true;
             }
@@ -53,6 +63,15 @@ function SideNav() {
             return false;
         }
     }
+
+    const getFiles = async () => {
+        const res = await convex.query(api.files.getFiles, { teamId: activeTeam?._id })
+        setTotalFiles(res?.length)
+
+    }
+
+
+
 
     return <div className="bg-[#1a1a1a4d] backdrop-blur-xl h-screen w-72 fixed border-r border-neutral-600 flex flex-col p-6">
         {/*  if any issue in ui, check for the dashboard layout file */}
@@ -74,7 +93,9 @@ function SideNav() {
         <div>
 
         </div>
-        <SideNavBottom onFileCreate={onFileCreate} />
+        <SideNavBottom onFileCreate={onFileCreate}
+
+            totalFiles={totalFiles} />
 
 
     </div>;
