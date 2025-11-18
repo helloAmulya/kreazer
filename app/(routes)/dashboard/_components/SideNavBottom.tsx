@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Archive, Flag, Github } from "lucide-react";
 import { h2 } from "motion/react-client";
 import React, { useState } from "react";
-
+import { toast } from "sonner"
 import {
     Dialog,
     DialogContent,
@@ -13,9 +13,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { DialogClose } from "@radix-ui/react-dialog";
 
-const SideNavBottom = ({ onFileCreate }: any) => {
+interface SideNavBottomProps {
+    onFileCreate: (fileName: string) => Promise<boolean>;
+}
+
+const SideNavBottom = ({ onFileCreate }: SideNavBottomProps) => {
     const menulist = [
         {
             name: "Getting Started",
@@ -38,6 +41,20 @@ const SideNavBottom = ({ onFileCreate }: any) => {
     ];
 
     const [fileInput, setFileInput] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleCreateFile = async () => {
+        setIsLoading(true);
+        try {
+            const success = await onFileCreate(fileInput);
+            if (success) {
+                setFileInput("");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div className="text-white">
             {menulist.map((item, index) => (
@@ -100,17 +117,15 @@ const SideNavBottom = ({ onFileCreate }: any) => {
                     </DialogHeader>
 
                     <DialogFooter className="">
-                        <DialogClose asChild>
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                className="bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700"
-                                disabled={!(fileInput && fileInput.length > 3)}
-                                onClick={() => onFileCreate(fileInput)}
-                            >
-                                Close
-                            </Button>
-                        </DialogClose>
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            className="bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700"
+                            disabled={!(fileInput && fileInput.length > 3) || isLoading}
+                            onClick={handleCreateFile}
+                        >
+                            {isLoading ? "Creating..." : "Create"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

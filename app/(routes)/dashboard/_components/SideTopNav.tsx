@@ -22,7 +22,7 @@ export interface TEAM {
     createdBy: string,
     _id: string,
 }
-function SideTopNav({ user }: any) {
+function SideTopNav({ user, setActiveTeamInfo }: any) {
 
     const convex = useConvex();
     const router = useRouter();
@@ -35,7 +35,7 @@ function SideTopNav({ user }: any) {
     }, [user])
 
     useEffect(() => {
-        activeTeam ? setActiveTeam(activeTeam) : null
+        activeTeam ? setActiveTeamInfo(activeTeam) : null
     }, [activeTeam])
 
 
