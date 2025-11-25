@@ -45,36 +45,39 @@ function DashboardLayout({
   }, [user, isLoading, convex, router]);
 
 
-if (isLoading || isCheckingTeam) {
-  return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#0b0b0b] transition-all duration-500">
-      <Image
-        src="/kreazer-logo-main.png"
-        alt="Kreazer logo"
-        width={120}
-        height={120}
-        className="opacity-95 mb-4 animate-fade-in"
-      />
-      <p className="text-base text-neutral-400 font-medium animate-pulse tracking-wide">
-        loading <span className="text-white">kreazer</span>...
-      </p>
-    </div>
-  );
-}
+  if (isLoading || isCheckingTeam) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-[#0b0b0b] transition-all duration-500">
+        <Image
+          src="/kreazer-logo-main.png"
+          alt="Kreazer logo"
+          width={120}
+          height={120}
+          className="opacity-95 mb-4 animate-fade-in"
+        />
+        <p className="text-base text-neutral-400 font-medium animate-pulse tracking-wide">
+          loading <span className="text-white">kreazer</span>...
+        </p>
+      </div>
+    );
+  }
 
 
 
 
   return (
-    <div className="bg-black h-screen w-full">
+    <div>
+
+      {/* <div className="bg-black h-screen w-full"> */}
       <div className="grid grid-cols-4">
-        <div>
+        <div className="bg-black h-screen w-72 fixed">
           <SideNav />
         </div>
-        <div className="grid grid-cols-3">{children}</div>
+        <div className="col-span-4 ml-72">{children}</div>
       </div>
       <Toaster />
     </div>
+    // </div>
   );
 }
 

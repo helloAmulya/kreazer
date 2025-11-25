@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Header from "./_components/Header";
 
 function Dashboard() {
 
@@ -70,10 +71,12 @@ function Dashboard() {
 
   return (
     <div >
-      <p className="text-white">fdfb</p>
+         <Header/>
+      
       {/* <Button>
         <LogoutLink>Logout </LogoutLink>  this has been replaced by sidebar component-> SideTopNav
       </Button> */}
+
 
     </div>
   );
