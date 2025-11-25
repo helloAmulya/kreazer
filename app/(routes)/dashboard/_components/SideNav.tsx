@@ -1,8 +1,9 @@
+"use Client"
 
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideTopNav, { TEAM } from "./SideTopNav";
 import {
     Popover,
@@ -14,6 +15,7 @@ import SideNavBottom from "./SideNavBottom";
 import { useConvex, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner"
+import { FileListContext } from "@/app/_context/FileListContext";
 
 
 function SideNav() {
@@ -26,6 +28,7 @@ function SideNav() {
 
     const [totalFiles, setTotalFiles] = useState<number>()
 
+    const { fileList_, setFileList_ } = useContext(FileListContext);
 
     useEffect(() => {
         activeTeam && getFiles();
@@ -66,6 +69,7 @@ function SideNav() {
 
     const getFiles = async () => {
         const res = await convex.query(api.files.getFiles, { teamId: activeTeam?._id })
+        setFileList_(res);
         setTotalFiles(res?.length)
 
     }

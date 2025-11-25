@@ -4,10 +4,11 @@ import { api } from "@/convex/_generated/api";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useConvex } from "convex/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import SideNav from "./_components/SideNav";
 import Image from "next/image";
+import { FileListContext, FileListContextProvider } from "@/app/_context/FileListContext";
 
 function DashboardLayout({
   children,
@@ -18,6 +19,8 @@ function DashboardLayout({
   const convex = useConvex();
   const router = useRouter();
   const [isCheckingTeam, setIsCheckingTeam] = useState(true);
+
+  // const { fileList_, setFileList_ } = useContext(FileListContext);
 
   useEffect(() => {
     const checkTeam = async () => {
@@ -68,16 +71,20 @@ function DashboardLayout({
   return (
     <div>
 
-      {/* <div className="bg-black h-screen w-full"> */}
-      <div className="grid grid-cols-4">
-        <div className="bg-black h-screen w-72 fixed">
-          <SideNav />
+      {/* <FileListContextProvider value={{ fileList_, setFileList_ }}> */}
+      <FileListContextProvider>
+
+        <div className="grid grid-cols-4">
+          <div className="bg-black h-screen w-72 fixed">
+            <SideNav />
+          </div>
+          <div className="col-span-4 ml-72">{children}</div>
         </div>
-        <div className="col-span-4 ml-72">{children}</div>
-      </div>
-      <Toaster />
+        <Toaster />
+      </FileListContextProvider>
+
     </div>
-    // </div>
+
   );
 }
 

@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Header from "./_components/Header";
+import Filelist from "./_components/Filelist";
 
 function Dashboard() {
 
@@ -71,8 +72,9 @@ function Dashboard() {
 
   return (
     <div >
-         <Header/>
-      
+      <Header />
+      <Filelist />
+
       {/* <Button>
         <LogoutLink>Logout </LogoutLink>  this has been replaced by sidebar component-> SideTopNav
       </Button> */}
