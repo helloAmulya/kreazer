@@ -17,6 +17,16 @@ export const createFile = mutation({
     }
 })
 
+export const deleteFile = mutation({
+    args: {
+        fileId: v.id("files")
+    },
+    handler: async (ctx, args) => {
+        const res = await ctx.db.delete(args.fileId)
+        return res
+    }
+})
+
 
 export const getFiles = query({
     args: {
