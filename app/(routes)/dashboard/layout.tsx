@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import SideNav from "./_components/SideNav";
 import Image from "next/image";
-import { FileListContext, FileListContextProvider } from "@/app/_context/FileListContext";
+import {  FileListContextProvider } from "@/app/_context/FileListContext";
 
 function DashboardLayout({
   children,
